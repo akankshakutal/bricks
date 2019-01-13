@@ -27,9 +27,12 @@ const initialise = function() {
   const screen = document.getElementById("main");
   screen.onkeydown = move.bind(null, document, paddle);
   setInterval(() => {
+    if (game.isCollide()) {
+      velocity.negativeX();
+    }
     ball.moveBall();
     drawBall(document, ball);
-  }, 10);
+  }, 5);
 };
 
 window.onload = () => {

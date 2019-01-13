@@ -58,6 +58,15 @@ class Game {
     this.paddle = paddle;
     this.ball = ball;
   }
+
+  isCollide() {
+    if (this.ball.left == this.wall.width - this.ball.radius * 2)
+      this.ball.velocity.negativeX();
+    if (this.ball.bottom == this.wall.height - this.ball.radius * 2)
+      this.ball.velocity.negativeY();
+    if (this.ball.bottom == 0) this.ball.velocity.negativeY();
+    if (this.ball.left == 0) this.ball.velocity.negativeX();
+  }
 }
 
 const isWithinRightBoundary = function(paddle) {
