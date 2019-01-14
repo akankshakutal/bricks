@@ -1,20 +1,25 @@
 const ARROW_LEFT = "ArrowLeft";
 const ARROW_RIGHT = "ArrowRight";
 
-const shouldMoveRight = (event, paddle) =>
-  event.key === ARROW_RIGHT && isWithinRightBoundary(paddle);
+const moveBall = function(document, game) {
+  setInterval(() => {
+    game.validateBallMovement();
+    game.ball.moveBall();
+    drawBall(document, game.ball);
+  }, 5);
+};
 
-const shouldMoveLeft = (event, paddle) =>
-  event.key === ARROW_LEFT && isWithinLeftBoundary(paddle);
+const movePaddle = function(document, game) {
+  if (event.key == ARROW_RIGHT) game.paddle.moveRight();
+  if (event.key == ARROW_LEFT) game.paddle.moveLeft();
+  game.validatePaddlePosition();
+  drawPaddle(document, game.paddle);
+};
 
-const move = function(document, paddle) {
-  if (shouldMoveRight(event, paddle)) {
-    paddle.moveRight();
-  }
-  if (shouldMoveLeft(event, paddle)) {
-    paddle.moveLeft();
-  }
-  drawPaddle(document, paddle);
+const startGame = function(document, game) {
+  const screen = document.getElementById("main");
+  screen.onkeydown = movePaddle.bind(null, document, game);
+  moveBall(document, game);
 };
 
 const initialise = function() {
@@ -23,16 +28,8 @@ const initialise = function() {
   const velocity = new Velocity(1, 1);
   const ball = new Ball(20, 390, 22, velocity);
   const game = new Game(wall, paddle, ball);
-  createElements(document, game);
-  const screen = document.getElementById("main");
-  screen.onkeydown = move.bind(null, document, paddle);
-  setInterval(() => {
-    if (game.isCollide()) {
-      velocity.negativeX();
-    }
-    ball.moveBall();
-    drawBall(document, ball);
-  }, 5);
+  createGame(document, game);
+  startGame(document, game);
 };
 
 window.onload = () => {

@@ -1,42 +1,25 @@
-const applyPixel = count => count + "px";
+const addPixel = count => count + "px";
 
-const createWallDiv = function(document) {
-  const main = document.getElementById("main");
-  const wallDiv = document.createElement("div");
-  wallDiv.id = "screen";
-  wallDiv.tabIndex = "0";
-  wallDiv.className = "board";
-  main.appendChild(wallDiv);
-};
-
-const drawWallDiv = function(document, wall) {
-  const screen = document.getElementById("screen");
-  screen.style.height = applyPixel(wall.height);
-  screen.style.width = applyPixel(wall.width);
-};
-
-const createPaddleDiv = function(document) {
-  const screen = document.getElementById("screen");
-  let paddleDiv = document.createElement("div");
-  paddleDiv.id = "paddle_1";
-  paddleDiv.className = "paddle";
-  screen.appendChild(paddleDiv);
+const drawBall = function(document, ball) {
+  const ballDiv = document.getElementById("ball");
+  ballDiv.style.height = addPixel(ball.radius * 2);
+  ballDiv.style.width = addPixel(ball.radius * 2);
+  ballDiv.style.left = addPixel(ball.left);
+  ballDiv.style.bottom = addPixel(ball.bottom);
 };
 
 const drawPaddle = function(document, paddle) {
   const paddleDiv = document.getElementById("paddle_1");
-  paddleDiv.style.height = applyPixel(paddle.height);
-  paddleDiv.style.width = applyPixel(paddle.width);
-  paddleDiv.style.left = applyPixel(paddle.left);
-  paddleDiv.style.bottom = applyPixel(paddle.bottom);
+  paddleDiv.style.height = addPixel(paddle.height);
+  paddleDiv.style.width = addPixel(paddle.width);
+  paddleDiv.style.left = addPixel(paddle.left);
+  paddleDiv.style.bottom = addPixel(paddle.bottom);
 };
 
-const drawBall = function(document, ball) {
-  const ballDiv = document.getElementById("ball");
-  ballDiv.style.height = applyPixel(ball.radius * 2);
-  ballDiv.style.width = applyPixel(ball.radius * 2);
-  ballDiv.style.left = applyPixel(ball.left);
-  ballDiv.style.bottom = applyPixel(ball.bottom);
+const drawWallDiv = function(document, wall) {
+  const screen = document.getElementById("screen");
+  screen.style.height = addPixel(wall.height);
+  screen.style.width = addPixel(wall.width);
 };
 
 const createBallDiv = function(document) {
@@ -47,7 +30,24 @@ const createBallDiv = function(document) {
   screen.appendChild(ballDiv);
 };
 
-const createElements = function(document, { wall, paddle, ball }) {
+const createPaddleDiv = function(document) {
+  const screen = document.getElementById("screen");
+  let paddleDiv = document.createElement("div");
+  paddleDiv.id = "paddle_1";
+  paddleDiv.className = "paddle";
+  screen.appendChild(paddleDiv);
+};
+
+const createWallDiv = function(document) {
+  const main = document.getElementById("main");
+  const wallDiv = document.createElement("div");
+  wallDiv.id = "screen";
+  wallDiv.tabIndex = "0";
+  wallDiv.className = "board";
+  main.appendChild(wallDiv);
+};
+
+const createGame = function(document, { wall, paddle, ball }) {
   createWallDiv(document);
   createPaddleDiv(document);
   createBallDiv(document);
