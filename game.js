@@ -5,39 +5,44 @@ class Game {
     this.ball = ball;
   }
 
-  validatePaddlePosition() {
-    const maxLeftPosition = this.wall.getWidth() - this.paddle.getWidth();
-    if (this.paddle.getLeft() <= 0) this.paddle.moveRight();
-    if (this.paddle.getLeft() >= maxLeftPosition) this.paddle.moveLeft();
-  }
+	movePaddleLeft(){
+		if (this.paddle.getLeft() === 0) return;
+		this.paddle.moveLeft();
+	}
+
+	movePaddleRight() {
+		const verticalRange = this.wall.getWidth() - this.paddle.getWidth();
+		if (this.paddle.getLeft() >= verticalRange) return;
+		this.paddle.moveRight();
+	}
 
   isBallCollideWithWall() {
-    const maxLeftPosition = this.wall.getWidth() - this.ball.getRadius() * 2;
-    return this.ball.getLeft() >= maxLeftPosition || this.ball.getLeft() <= 0;
+    const verticalRange = this.wall.getWidth() - this.ball.getRadius() * 2;
+    return this.ball.getLeft() >= verticalRange || this.ball.getLeft() <= 0;
   }
 
-  isBallInRangeOf(element) {
-    const collidalRange = element.left + element.width;
-    const collidalPositionOfBall = this.ball.getLeft() + this.ball.getRadius();
-    return (
-      element.left <= collidalPositionOfBall &&
-      collidalPositionOfBall <= collidalRange
-    );
-  }
+	isBallInRangeOf(paddle) {
+		const paddlePosition = paddle.getLeft() + paddle.getWidth();
+		const ballPosition = this.ball.getLeft() + this.ball.getRadius();
+		return (
+			paddle.getLeft() <= ballPosition &&
+			ballPosition <= paddlePosition
+		);
+	}
 
-  isBallCollidedWithPaddle() {
-    const maxCollidalLength = this.paddle.getBottom() + this.paddle.getHeight();
-    return (
-      this.ball.getBottom() <= maxCollidalLength &&
-      this.isBallInRangeOf(this.paddle)
-    );
-  }
+	isBallCollidedWithPaddle() {
+		const topSurface = this.paddle.getBottom() + this.paddle.getHeight();
+		return (
+			this.ball.getBottom() == topSurface &&
+			this.isBallInRangeOf(this.paddle)
+		);
+	}
 
   validateBallMovement() {
-    const maxBottomPosition = this.wall.getHeight() - 2 * this.ball.getRadius();
+    const bottomSurface = this.wall.getHeight() - 2 * this.ball.getRadius();
     if (this.isBallCollideWithWall())
       this.wall.changeVelocity(this.ball.getVelocity());
-    if (this.ball.getBottom() >= maxBottomPosition) this.ball.getVelocity().negativeY();
+    if (this.ball.getBottom() >= bottomSurface) this.ball.getVelocity().negateY();
     if (this.ball.getBottom() <= 0) this.ball.getVelocity() = new Velocity(0, 0);
     if (this.isBallCollidedWithPaddle())
       this.paddle.changeVelocity(this.ball.getVelocity());

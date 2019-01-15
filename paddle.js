@@ -32,6 +32,6 @@ class Paddle {
   }
 
   changeVelocity(velocity) {
-    velocity.negativeY();
+    velocity.negateY();
   }
 }

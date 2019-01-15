@@ -10,9 +10,9 @@ const moveBall = function(document, game) {
 };
 
 const movePaddle = function(document, game) {
-  if (event.key == ARROW_RIGHT) game.paddle.moveRight();
-  if (event.key == ARROW_LEFT) game.paddle.moveLeft();
-  game.validatePaddlePosition();
+  if (event.key == ARROW_RIGHT) game.movePaddleRight();
+  if (event.key == ARROW_LEFT) game.movePaddleLeft();
+  // game.checkPaddlePosition();
   drawPaddle(document, game.paddle);
 };
 
@@ -24,8 +24,8 @@ const startGame = function(document, game) {
 
 const initialise = function() {
   const wall = new Wall(570, 800);
-  const paddle = new Paddle(20, 100, 350, 1, 15);
-  const velocity = new Velocity(1, 1);
+  const paddle = new Paddle(20, 100, 350, 1, 10);
+  const velocity = new Velocity(1, -1);
   const ball = new Ball(20, 390, 22, velocity);
   const game = new Game(wall, paddle, ball);
   createGame(document, game);

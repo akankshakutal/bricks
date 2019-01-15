@@ -13,6 +13,6 @@ class Wall {
   }
 
   changeVelocity(velocity) {
-    velocity.negativeX();
+    velocity.negateX();
   }
 }
