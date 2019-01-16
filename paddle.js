@@ -31,8 +31,12 @@ class Paddle {
     this.left = this.left + this.speed;
   }
 
-  changeVelocity(velocity) {
-    velocity.negateY();
+  changeVelocityX(velocity) {
+    return new Velocity(-velocity.x, velocity.y);
+  }
+
+  changeVelocityY(velocity) {
+    return new Velocity(velocity.x, -velocity.y);
   }
 
   isInRangeOf(ballLeft, ballRadius) {

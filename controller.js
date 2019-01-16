@@ -4,15 +4,15 @@ const ARROW_RIGHT = "ArrowRight";
 const moveBall = function(document, game) {
   setInterval(() => {
     game.validateBallMovement();
-    game.ball.moveBall();
-    drawBall(document, game.ball);
+    game.moveBall();
+    drawBall(document, game.getBall());
   }, 5);
 };
 
 const movePaddle = function(document, game) {
   if (event.key == ARROW_RIGHT) game.movePaddleRight();
   if (event.key == ARROW_LEFT) game.movePaddleLeft();
-  drawPaddle(document, game.paddle);
+  drawPaddle(document, game.getPaddle());
 };
 
 const startGame = function(document, game) {

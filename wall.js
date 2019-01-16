@@ -12,8 +12,12 @@ class Wall {
     return this.height;
   }
 
-  changeVelocity(velocity) {
+  changeVelocityX(velocity) {
     return new Velocity(-velocity.x, velocity.y);
+  }
+
+  changeVelocityY(velocity) {
+    return new Velocity(velocity.x, -velocity.y);
   }
 
   isCollideWith(ballRadius, ballLeft) {
