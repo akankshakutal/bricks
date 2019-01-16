@@ -34,4 +34,15 @@ class Paddle {
   changeVelocity(velocity) {
     velocity.negateY();
   }
+
+  isInRangeOf(ballLeft, ballRadius) {
+    const paddlePosition = this.left + this.width;
+    const ballPosition = ballLeft + ballRadius;
+    return this.left <= ballPosition && ballPosition <= paddlePosition;
+  }
+
+  isCollidedWith(ballLeft, ballBottom, ballRadius) {
+    const topSurface = this.bottom + this.height;
+    return ballBottom == topSurface && this.isInRangeOf(ballLeft, ballRadius);
+  }
 }

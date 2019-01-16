@@ -37,6 +37,9 @@ class Ball {
     return this.velocity;
   }
 
+  setVelocity(velocity) {
+    this.velocity = velocity;
+  }
   moveBall() {
     this.left += this.velocity.x;
     this.bottom += this.velocity.y;

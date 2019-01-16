@@ -12,7 +12,6 @@ const moveBall = function(document, game) {
 const movePaddle = function(document, game) {
   if (event.key == ARROW_RIGHT) game.movePaddleRight();
   if (event.key == ARROW_LEFT) game.movePaddleLeft();
-  // game.checkPaddlePosition();
   drawPaddle(document, game.paddle);
 };
 
